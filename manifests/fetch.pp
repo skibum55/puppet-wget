@@ -12,6 +12,8 @@ define wget::fetch (
   $verbose            = false,
   $redownload         = false,
   $nocheckcertificate = false,
+  $noproxy            = false,
+  $header             = undef,
   $execuser           = undef,
   $user               = undef,
   $password           = undef,
@@ -50,6 +52,16 @@ define wget::fetch (
     false => ''
   }
 
+  $noproxy_option = $noproxy ? {
+    true  => ' --noproxy',
+    false => ''
+  }
+
+  $header_option = $header ? {
+    undef => ''
+    default  => " --header ${header}",
+  }
+
   $user_option = $user ? {
     undef   => '',
     default => " --user=${user}",
@@ -74,7 +86,7 @@ define wget::fetch (
   }
 
   exec { "wget-${name}":
-    command     => "wget ${verbose_option}${nocheckcert_option}${user_option} --output-document='${destination}' '${source}'",
+    command     => "wget ${verbose_option}${nocheckcert_option}${noproxy_option}${user_option}${header_option} --output-document='${destination}' '${source}'",
     timeout     => $timeout,
     unless      => $unless_test,
     environment => $environment,
