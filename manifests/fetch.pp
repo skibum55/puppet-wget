@@ -58,7 +58,7 @@ define wget::fetch (
   }
 
   $header_option = $header ? {
-    undef => ''
+    undef => '',
     default  => " --header ${header}",
   }
 
