@@ -39,22 +39,22 @@ define wget::fetch (
 
   $verbose_option = $verbose ? {
     true  => '--verbose',
-    false => '--no-verbose'
+    false => '--no-verbose',
   }
 
   $unless_test = $redownload ? {
     true  => 'test',
-    false => "test -s ${destination}"
+    false => "test -s ${destination}",
   }
 
   $nocheckcert_option = $nocheckcertificate ? {
     true  => ' --no-check-certificate',
-    false => ''
+    false => '',
   }
 
   $noproxy_option = $noproxy ? {
     true  => ' --noproxy',
-    false => ''
+    false => '',
   }
 
   $header_option = $header ? {
