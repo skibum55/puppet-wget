@@ -53,7 +53,7 @@ define wget::fetch (
   }
 
   $noproxy_option = $noproxy ? {
-    true  => ' --noproxy',
+    true  => ' --no-proxy',
     false => '',
   }
 
